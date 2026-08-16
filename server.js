@@ -171,7 +171,7 @@ app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// 📌 MOVE THESE ADMIN ROUTES HERE (Above app.listen)
+// 📌 1. Place Admin Routes FIRST (so Express catches them before the fallback)
 app.get('/api/admin/users', (req, res) => {
     db.all(`SELECT id, email FROM users`, [], (err, rows) => {
         if (err) {
@@ -190,8 +190,12 @@ app.get('/api/admin/registrations', (req, res) => {
     });
 });
 
-// app.listen must be at the very bottom
+// 📌 2. Place the Fallback Route LAST (catches non-API requests)
+app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
+// 📌 3. Start the Server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
