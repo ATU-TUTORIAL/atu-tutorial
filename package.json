@@ -1,9 +1,17 @@
 {
+  "name": "atu-tutorial",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.3",
-    "express": "^5.2.1",
-    "express-session": "^1.19.0",
-    "sqlite3": "^6.0.1"
+    "bcrypt": "^5.1.1",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
