@@ -111,7 +111,35 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s;
-    }
+    }/* Password wrapper styling */
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 45px; /* Leave space for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    padding: 0;
+    width: auto;
+    margin: 0;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
 
     #submit-btn {
         background-color: var(--primary-color);
@@ -190,11 +218,18 @@
 <!-- Login/Signup Form -->
 <div class="container" id="auth-box">
     <h2 id="form-title">Sign Up to atu </h2>
-    <form id="auth-form">
-        <input type="email" id="email" placeholder="Email" required>
+   <form id="auth-form">
+    <input type="email" id="email" placeholder="Email" required>
+    
+    <!-- Password field wrapped with the eye icon button -->
+    <div class="password-container">
         <input type="password" id="password" placeholder="Password" required>
-        <button type="submit" id="submit-btn">Register</button>
-    </form>
+        <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+    </div>
+
+    <button type="submit" id="submit-btn">Register</button>
+</form>
+
     <button class="toggle-btn" id="toggle-form">Already have an account? Log In</button>
     <div id="message"></div>
 </div>
@@ -265,6 +300,20 @@
         toggleFormBtn.textContent = isSignUp ? "Already have an account? Log In" : "Don't have an account? Sign Up";
         messageDiv.textContent = "";
     });
+    // Toggle password visibility (Show/Hide)
+const togglePasswordBtn = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+
+if (togglePasswordBtn && passwordInput) {
+    togglePasswordBtn.addEventListener('click', () => {
+        // Toggle the input type between 'password' and 'text'
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Change the icon/text based on visibility
+        togglePasswordBtn.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+    });
+}
 
     // 4. Form Submission (Login / Register)
     document.getElementById('auth-form').addEventListener('submit', async (e) => {
