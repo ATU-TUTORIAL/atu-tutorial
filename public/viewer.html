@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATU TUTORIAL - Textbook Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-glow: rgba(37, 99, 235, 0.15);
+            --border-color: #e2e8f0;
+        }
+
+        body.dark-mode {
+            --bg-base: #0b0f19;
+            --bg-card: #151f32;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --border-color: #243249;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top bar navigation */
+        .viewer-header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-glow);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .textbook-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .action-btn.primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+        }
+
+        .action-btn.primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .action-btn.outline {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .action-btn.outline:hover {
+            color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        /* PDF display container */
+        .pdf-container {
+            flex-grow: 1;
+            width: 100%;
+            height: calc(100vh - 65px);
+            position: relative;
+            background-color: #525659; /* Standard dark background behind PDF page */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Fallback if PDF cannot load */
+        .fallback-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .fallback-message h3 {
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .fallback-message p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .viewer-header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+                align-items: stretch;
+            }
+            .header-left {
+                justify-content: space-between;
+            }
+            .header-actions {
+                justify-content: flex-end;
+            }
+            .pdf-container {
+                height: calc(100vh - 115px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Control Bar -->
+    <header class="viewer-header">
+        <div class="header-left">
+            <a href="atu.html" onclick="handleExit(event)" class="back-btn">← Exit Library</a>
+            <span class="textbook-title" id="textbookTitle">Loading textbook...</span>
+        </div>
+        <div class="header-actions">
+            <a href="https://t.me/ATU_TUTORIAL" target="_blank" class="action-btn outline">Ask on Telegram</a>
+            <a id="downloadBtn" href="#" class="action-btn outline" download>Download File</a>
+            <!-- Updated to index.html to match the main file name -->
+            <a href="atu.html#auth" class="action-btn primary">Request Tutor</a>
+        </div>
+    </header>
+
+    <!-- PDF Presentation Container -->
+    <main class="pdf-container" id="pdfContainer">
+        <!-- Javascript will dynamically build and insert the PDF object here -->
+    </main>
+
+    <script>
+        // Check local storage for dark mode state matching main app
+        const darkModeEnabled = localStorage.getItem('atu_dark_mode') === 'true';
+        document.body.classList.toggle('dark-mode', darkModeEnabled);
+
+        // Parse query parameters
+        function getQueryParams() {
+            const params = {};
+            const search = window.location.search.substring(1);
+            if (search) {
+                const pairs = search.split('&');
+                for (let i = 0; i < pairs.length; i++) {
+                    const pair = pairs[i].split('=');
+                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+                }
+            }
+            return params;
+        }
+
+        // Initialize viewer details
+        const params = getQueryParams();
+        const fileUrl = params.file;
+        const subjectName = params.subject || 'Textbook';
+        const gradeValue = params.grade || '';
+
+        if (fileUrl) {
+            // Set titles and action links
+            document.getElementById('textbookTitle').textContent = `Grade ${gradeValue} - ${subjectName}`;
+            document.getElementById('downloadBtn').setAttribute('href', fileUrl);
+            document.title = `Grade ${gradeValue} ${subjectName} - ATU TUTORIAL`;
+
+            // Dynamically generate the object element to force the browser to load the PDF
+            const container = document.getElementById('pdfContainer');
+            container.innerHTML = `
+                <object id="pdfObject" data="${fileUrl}" type="application/pdf" width="100%" height="100%">
+                    <div class="fallback-message">
+                        <h3>PDF Preview Unavailable</h3>
+                        <p>Your browser or device might not support inline PDF viewing. You can download the textbook directly to study on your device.</p>
+                        <a href="${fileUrl}" class="action-btn primary" download style="display: inline-block;">Download Textbook</a>
+                    </div>
+                </object>
+            `;
+        } else {
+            document.getElementById('textbookTitle').textContent = "Error: File path missing";
+        }
+    </script>
+</body>
+</html>

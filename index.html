@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atu tutorials</title>
+   <style>
+    /* Import a premium font */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+    /* ==========================================
+       THEME SYSTEM (Light Theme Default)
+       ========================================== */
+    :root {
+        --primary-color: #6366f1;
+        --primary-hover: #4f46e5;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --glass-bg: rgba(255, 255, 255, 0.95);
+        --text-main: #1f2937;
+        --text-muted: #6b7280;
+        --input-border: #e5e7eb;
+        --input-bg: #ffffff;
+    }/* Password wrapper styling */
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 45px; /* Leave space for the eye icon */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    transform: translateY(-50%) !important;
+    box-shadow: none !important;
+}
+
+
+.toggle-password:hover {
+    color: var(--primary-color);
+}
+
+    /* Dark Theme Properties */
+    body.dark-mode {
+        --primary-color: #818cf8;
+        --primary-hover: #6366f1;
+        --bg-gradient: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+        --glass-bg: rgba(31, 41, 55, 0.95);
+        --text-main: #f9fafb;
+        --text-muted: #9ca3af;
+        --input-border: #374151;
+        --input-bg: #1f2937;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-gradient);
+        padding: 20px;
+    }
+
+    /* Container Styling */
+    .container {
+        background: var(--glass-bg);
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        transition: all 0.3s ease;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+        color: var(--text-main);
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    p {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+    }
+
+    /* Form Inputs */
+    input {
+        width: 100%;
+        padding: 12px 16px;
+        margin: 8px 0;
+        border: 1.5px solid var(--input-border);
+        background-color: var(--input-bg);
+        color: var(--text-main);
+        border-radius: 12px;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.2s;
+    }
+
+    input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    }
+
+    /* Buttons */
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    #submit-btn {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    #submit-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    #submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .toggle-btn {
+        background: transparent;
+        color: var(--primary-color);
+        font-size: 0.9rem;
+        margin-top: 12px;
+    }
+
+    .toggle-btn:hover {
+        text-decoration: underline;
+    }
+
+    #logout-btn {
+        background: #fee2e2;
+        color: #dc2626;
+        margin-top: 24px;
+    }
+
+    body.dark-mode #logout-btn {
+        background: #451a1a;
+        color: #fca5a5;
+    }
+
+    #logout-btn:hover {
+        background: #fecaca;
+    }
+
+    body.dark-mode #logout-btn:hover {
+        background: #7f1d1d;
+    }
+
+    /* Status Messages */
+    #message {
+        margin-top: 16px;
+        font-size: 0.9rem;
+        min-height: 20px;
+        font-weight: 500;
+    }
+
+    /* User Display (Dashboard) */
+    #user-display {
+        color: var(--primary-color);
+        word-break: break-all;
+    }
+
+    /* Utility Classes */
+    .hidden {
+        display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+        .container {
+            padding: 30px 20px;
+        }
+    }
+</style> 
+</head>
+<body>
+
+<!-- Login/Signup Form -->
+<div class="container" id="auth-box">
+    <h2 id="form-title">Sign Up to atu </h2>
+    <form id="auth-form">
+    <input type="email" id="email" placeholder="Email" required>
+    
+    <!-- Password field wrapped with the eye icon button -->
+    <div class="password-container">
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+    </div>
+
+    <button type="submit" id="submit-btn">Register</button>
+</form>
+    <button class="toggle-btn" id="toggle-form">Already have an account? Log In</button>
+    <div id="message"></div>
+</div>
+
+<!-- Private Dashboard (Fallback fallback container if redirection is delayed) -->
+<div class="container hidden" id="dashboard-box">
+    <h2>Welcome!</h2>
+    <p>You are logged in as: <strong id="user-display"></strong></p>
+    <p>Redirecting to home page...</p>
+    <button id="logout-btn">Log Out</button>
+</div>
+
+<script>
+    let isSignUp = true;
+    const authBox = document.getElementById('auth-box');
+    const dashboardBox = document.getElementById('dashboard-box');
+    const userDisplay = document.getElementById('user-display');
+    const messageDiv = document.getElementById('message');
+    const DARK_MODE_KEY = 'atu_dark_mode';
+
+    // 1. Theme Syncer (Applies dark mode from local storage)
+    function applyTheme() {
+        const enabled = localStorage.getItem(DARK_MODE_KEY) === 'true';
+        document.body.classList.toggle('dark-mode', enabled);
+    }
+
+    applyTheme();
+    // Sync dynamically across tabs if the user changes the theme in settings
+    window.addEventListener('storage', applyTheme);
+
+    // 2. On page load, check if user is already logged in (using session cookie)
+    async function checkAuth() {
+        try {
+            const res = await fetch('/api/me');
+            const data = await res.json();
+            if (data.loggedIn) {
+                // If already authenticated, redirect straight to the home page
+                window.location.href = 'atu.html';
+            } else {
+                showAuthForm();
+            }
+        } catch (error) {
+            showAuthForm();
+        }
+    }
+
+    function showDashboard(email) {
+        authBox.classList.add('hidden');
+        dashboardBox.classList.remove('hidden');
+        userDisplay.textContent = email;
+    }
+
+    function showAuthForm() {
+        authBox.classList.remove('hidden');
+        dashboardBox.classList.add('hidden');
+    }
+
+    checkAuth();
+
+    // 3. Toggle Forms
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    const toggleFormBtn = document.getElementById('toggle-form');
+    toggleFormBtn.addEventListener('click', () => {
+        isSignUp = !isSignUp;
+        formTitle.textContent = isSignUp ? "Sign Up" : "Log In";
+        submitBtn.textContent = isSignUp ? "Register" : "Log In";
+        toggleFormBtn.textContent = isSignUp ? "Already have an account? Log In" : "Don't have an account? Sign Up";
+        messageDiv.textContent = "";
+    });// Toggle password visibility (Show/Hide)
+const togglePasswordBtn = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+
+if (togglePasswordBtn && passwordInput) {
+    togglePasswordBtn.addEventListener('click', () => {
+        // Toggle the input type between 'password' and 'text'
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Change the icon/text based on visibility
+        togglePasswordBtn.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+    });
+}
+
+    // 4. Form Submission (Login / Register)
+    document.getElementById('auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const endpoint = isSignUp ? '/api/signup' : '/api/login';
+
+        try {
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                // Store user details locally to maintain connection with atu.html
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('loggedInUser', 'true');
+
+               if (isSignUp) {
+    window.location.href = 'public/atu.html';
+} else {
+    window.location.href = 'public/atu.html';
+}
+            } else {
+                messageDiv.textContent = data.message || "An error occurred.";
+                messageDiv.style.color = "red";
+            }
+        } catch (error) {
+            messageDiv.textContent = "Could not connect to the server.";
+            messageDiv.style.color = "red";
+        }
+    });
+
+    // 5. Log Out
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await fetch('/api/logout', { method: 'POST' });
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('loggedInUser');
+        showAuthForm();
+        messageDiv.textContent = "Logged out successfully.";
+        messageDiv.style.color = "green";
+    });
+</script>
+
+</body>
+</html>
