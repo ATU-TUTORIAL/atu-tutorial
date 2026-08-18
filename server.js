@@ -190,11 +190,15 @@ app.get('/api/admin/registrations', (req, res) => {
     });
 });
 
+// 👇 ADD THIS LINE RIGHT HERE 👇
+app.get('/admin.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // 📌 2. Place the Fallback Route LAST (catches non-API requests)
 app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 // 📌 3. Start the Server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
