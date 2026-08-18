@@ -267,7 +267,7 @@
             const data = await res.json();
             if (data.loggedIn) {
                 // If already authenticated, redirect straight to the home page
-                window.location.href = 'atu.html';
+                window.location.href = '/public/atu.html';
             } else {
                 showAuthForm();
             }
@@ -336,9 +336,9 @@ if (togglePasswordBtn && passwordInput) {
                 localStorage.setItem('loggedInUser', 'true');
 
                if (isSignUp) {
-    window.location.href = 'public/atu.html';
+   window.location.href = '/public/atu.html';
 } else {
-    window.location.href = 'public/atu.html';
+   window.location.href = '/public/atu.html';
 }
             } else {
                 messageDiv.textContent = data.message || "An error occurred.";
