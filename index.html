@@ -1083,7 +1083,63 @@
             backBtn.style.display = 'none';
             headerText.textContent = 'Select your grade level to access notes and revision materials.';
         }
+// Handle Tutorial Registration submission
+        async function handleTutorialRegistration(event) {
+            event.preventDefault();
 
+            const parentName = document.getElementById('parentName').value.trim();
+            const phone = document.getElementById('parentPhone').value.trim();
+            const childrenCount = parseInt(document.getElementById('childrenCount').value || '0', 10);
+            const childGrades = [];
+
+            for (let i = 1; i <= childrenCount; i++) {
+                const grade = document.getElementById(`childGrade${i}`).value;
+                if (!grade) {
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = 'Please select the grade for each child.';
+                    msg.style.color = 'var(--accent-error)';
+                    return;
+                }
+                childGrades.push(grade);
+            }
+
+            try {
+                const res = await fetch('/api/register-tutor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        parentName, 
+                        phone, 
+                        childrenCount, 
+                        childGrades 
+                    })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    document.getElementById('tutorialRegistrationForm').reset();
+                    document.getElementById('childGradeFields').innerHTML = '';
+                    
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = 'Successfully registered! We will contact you soon.';
+                    msg.style.color = 'var(--accent-success)';
+                    msg.style.fontWeight = '600';
+                    
+                    setTimeout(() => {
+                        showPage('home');
+                        msg.textContent = '';
+                    }, 2000);
+                } else {
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = data.message || 'Error occurred during registration.';
+                    msg.style.color = 'var(--accent-error)';
+                }
+            } catch (error) {
+                const msg = document.getElementById('authMessage');
+                msg.textContent = 'Could not connect to the server.';
+                msg.style.color = 'var(--accent-error)';
+            }
+        }
 
     </script>
 </body>
