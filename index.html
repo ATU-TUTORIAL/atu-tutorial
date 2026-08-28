@@ -1072,11 +1072,18 @@
             headerText.textContent = 'Select your grade level to access notes and revision materials.';
         }
 
-        const res = await fetch('/api/register-tutor', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ parentName, phone, childrenCount, childGrades })
-});
+        function showGradeGrid() {
+            const gradeGrid = document.getElementById('gradeGrid');
+            const subjectGrid = document.getElementById('subjectGrid');
+            const backBtn = document.getElementById('backToGradesBtn');
+            const headerText = document.querySelector('.books-header p');
+
+            gradeGrid.style.display = 'grid';
+            subjectGrid.style.display = 'none';
+            backBtn.style.display = 'none';
+            headerText.textContent = 'Select your grade level to access notes and revision materials.';
+        }
+
 
     </script>
 </body>
