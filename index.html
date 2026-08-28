@@ -1079,6 +1079,11 @@
             document.getElementById('registrationForm').reset();
             showPage('home');
         }
+        const res = await fetch('/api/register-tutor', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ parentName, phone, childrenCount, childGrades })
+});
 
     </script>
 </body>
