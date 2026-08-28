@@ -1072,13 +1072,6 @@
             headerText.textContent = 'Select your grade level to access notes and revision materials.';
         }
 
-        function handleRegister(event) {
-            event.preventDefault();
-            const name = document.getElementById('fullName').value;
-            alert(`Thank you, ${name}! Your tutorial registration has been submitted successfully. We will reach out shortly via phone or Telegram.`);
-            document.getElementById('registrationForm').reset();
-            showPage('home');
-        }
         const res = await fetch('/api/register-tutor', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
