@@ -3,370 +3,1083 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>atu tutorials</title>
-   <style>
-    /* Import a premium font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-    /* ==========================================
-       THEME SYSTEM (Light Theme Default)
-       ========================================== */
-    :root {
-        --primary-color: #6366f1;
-        --primary-hover: #4f46e5;
-        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --glass-bg: rgba(255, 255, 255, 0.95);
-        --text-main: #1f2937;
-        --text-muted: #6b7280;
-        --input-border: #e5e7eb;
-        --input-bg: #ffffff;
-    }/* Password wrapper styling */
-.password-container {
-    position: relative;
-    width: 100%;
-}
-
-.password-container input {
-    width: 100%;
-    padding-right: 45px; /* Leave space for the eye icon */
-}
-
-.toggle-password {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent !important;
-    border: none !important;
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    padding: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-}
-
-.toggle-password:hover {
-    color: var(--primary-color);
-    transform: translateY(-50%) !important;
-    box-shadow: none !important;
-}
-
-
-.toggle-password:hover {
-    color: var(--primary-color);
-}
-
-    /* Dark Theme Properties */
-    body.dark-mode {
-        --primary-color: #818cf8;
-        --primary-hover: #6366f1;
-        --bg-gradient: linear-gradient(135deg, #0f172a 0%, #111827 100%);
-        --glass-bg: rgba(31, 41, 55, 0.95);
-        --text-main: #f9fafb;
-        --text-muted: #9ca3af;
-        --input-border: #374151;
-        --input-bg: #1f2937;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    }
-
-    body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--bg-gradient);
-        padding: 20px;
-    }
-
-    /* Container Styling */
-    .container {
-        background: var(--glass-bg);
-        width: 100%;
-        max-width: 400px;
-        padding: 40px;
-        border-radius: 24px;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        text-align: center;
-        transition: all 0.3s ease;
-        animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    h2 {
-        color: var(--text-main);
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-
-    p {
-        color: var(--text-muted);
-        margin-bottom: 24px;
-    }
-
-    /* Form Inputs */
-    input {
-        width: 100%;
-        padding: 12px 16px;
-        margin: 8px 0;
-        border: 1.5px solid var(--input-border);
-        background-color: var(--input-bg);
-        color: var(--text-main);
-        border-radius: 12px;
-        font-size: 1rem;
-        outline: none;
-        transition: all 0.2s;
-    }
-
-    input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-    }
-
-    /* Buttons */
-    button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 16px;
-        border: none;
-        border-radius: 12px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    #submit-btn {
-        background-color: var(--primary-color);
-        color: white;
-    }
-
-    #submit-btn:hover {
-        background-color: var(--primary-hover);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-    }
-
-    #submit-btn:active {
-        transform: translateY(0);
-    }
-
-    .toggle-btn {
-        background: transparent;
-        color: var(--primary-color);
-        font-size: 0.9rem;
-        margin-top: 12px;
-    }
-
-    .toggle-btn:hover {
-        text-decoration: underline;
-    }
-
-    #logout-btn {
-        background: #fee2e2;
-        color: #dc2626;
-        margin-top: 24px;
-    }
-
-    body.dark-mode #logout-btn {
-        background: #451a1a;
-        color: #fca5a5;
-    }
-
-    #logout-btn:hover {
-        background: #fecaca;
-    }
-
-    body.dark-mode #logout-btn:hover {
-        background: #7f1d1d;
-    }
-
-    /* Status Messages */
-    #message {
-        margin-top: 16px;
-        font-size: 0.9rem;
-        min-height: 20px;
-        font-weight: 500;
-    }
-
-    /* User Display (Dashboard) */
-    #user-display {
-        color: var(--primary-color);
-        word-break: break-all;
-    }
-
-    /* Utility Classes */
-    .hidden {
-        display: none !important;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
-        .container {
-            padding: 30px 20px;
+    <title>ATU TUTORIAL - Quality Education for Every Student</title>
+    <!-- Import Premium, Highly-Readable Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           CSS VARIABLES (Dynamic Theme Engine)
+           ========================================== */
+        :root {
+            /* Light Theme Palette */
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(255, 255, 255, 0.85);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-glow: rgba(37, 99, 235, 0.15);
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         }
-    }
-</style> 
+
+        body.dark-mode {
+            /* Dark Theme Palette */
+            --bg-base: #0b0f19;
+            --bg-card: #151f32;
+            --bg-nav: rgba(21, 31, 50, 0.85);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --border-color: #243249;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        /* ==========================================
+           BASE RESET & GLOBAL STYLES
+           ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================
+           HEADER & STICKY NAVIGATION
+           ========================================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-nav);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: var(--card-shadow);
+        }
+
+        .logo span {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary);
+            background-color: var(--primary-glow);
+        }
+
+        .nav-links li a.active {
+            color: #ffffff;
+            background-color: var(--primary);
+        }
+
+        /* ==========================================
+           MAIN CONTENT CONTAINER
+           ========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Page transitions */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: slideInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==========================================
+           1. HOME PAGE & HERO SECTION
+           ========================================== */
+        .hero {
+            background: var(--gradient-hero);
+            border-radius: 24px;
+            padding: 80px 40px;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 32px auto;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 32px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* ==========================================
+           2. FORMS & INPUTS (Auth & Registration)
+           ========================================== */
+        .auth-card, .form-card, .settings-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .auth-card h2, .form-card h2, .settings-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .auth-intro, .auth-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .auth-note {
+            margin-top: 24px;
+            margin-bottom: 0;
+            font-size: 0.85rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label, .child-grade-row label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1.5px solid var(--border-color);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+
+        /* Dynamic children generation section */
+        #childGradeFields {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .child-grade-row {
+            padding: 16px;
+            background-color: var(--bg-base);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Buttons Styling */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* ==========================================
+           3. BOOKS GRID (Grade 1 - 12 Notebooks)
+           ========================================== */
+        .books-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .books-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .books-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .grade-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .grade-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .grade-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .grade-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .download-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: var(--primary-glow);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* ==========================================
+           4. SETTINGS & TOGGLES
+           ========================================== */
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
+        }
+
+        .setting-item label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        /* Switch Toggle Design */
+        #darkModeToggle {
+            appearance: none;
+            width: 50px;
+            height: 26px;
+            background-color: #cbd5e1;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        #darkModeToggle:checked {
+            background-color: var(--primary);
+        }
+
+        #darkModeToggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.7, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #darkModeToggle:checked::before {
+            transform: translateX(24px);
+        }
+
+        /* ==========================================
+           5. SERVICES & CONTACTS
+           ========================================== */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .contact-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .contact-box h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .contact-item {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================
+           FOOTER SECTION
+           ========================================== */
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 24px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        /* ==========================================
+           RESPONSIVE MOBILE BREAKPOINTS
+           ========================================== */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .nav-links li a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 48px 20px;
+                border-radius: 16px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+
+            .auth-card, .form-card, .settings-card, .contact-box {
+                padding: 24px 16px;
+                border-radius: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Login/Signup Form -->
-<div class="container" id="auth-box">
-    <h2 id="form-title">Sign Up to atu </h2>
-    <form id="auth-form">
-    <input type="email" id="email" placeholder="Email" required>
-    
-    <!-- Password field wrapped with the eye icon button -->
-    <div class="password-container">
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="./images/logo.jpg" alt="ATU Tutorial Logo" width="48" height="48">
+                <span>ATU TUTORIAL</span>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="showPage('auth')" id="nav-auth">Tutorial Register</a></li>
+                <li><a onclick="showPage('books')" id="nav-books">Books (1-12)</a></li>
+                <li><a onclick="showPage('services')" id="nav-services">Services & Contact</a></li>
+                <li><a onclick="showPage('settings')" id="nav-settings">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. HOME PAGE -->
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <h1>Excel in Your Academic Journey!</h1>
+                <p>ATU TUTORIAL provides world-class home and online tutoring tailored to build your child's confidence, academic performance, and problem-solving skills.</p>
+                <a class="cta-btn" onclick="showPage('auth')">Register for a Tutor</a>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Experienced Tutors</h3>
+                    <p>Qualified teachers dedicated to subject mastery and student success.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Grades 1 – 12</h3>
+                    <p>Comprehensive curriculum support tailored to every education level.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Flexible Schedule</h3>
+                    <p>Learning plans tailored around your family's daily convenience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tutorial Registration Section -->
+        <section id="auth" class="page-section">
+            <div class="auth-card">
+                <h2>Tutorial Registration</h2>
+                <p class="auth-intro">To get a best score, tell us about your child and we will help you find the right tutor.</p>
+
+                <form id="tutorialRegistrationForm" onsubmit="handleTutorialRegistration(event)">
+                    <!-- Added Parent's Full Name Input Field -->
+                    <div class="form-group">
+                        <label for="parentName">Parent Full Name</label>
+                        <input type="text" id="parentName" placeholder="Enter parent's full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parentPhone">Phone Number</label>
+                        <input type="tel" id="parentPhone" placeholder="09XXXXXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="childrenCount">Number of Children</label>
+                        <input type="number" id="childrenCount" min="1" max="10" placeholder="1" required onchange="renderChildGradeFields()">
+                    </div>
+
+                    <div id="childGradeFields"></div>
+
+                    <button type="submit" class="submit-btn">Register for Tutor</button>
+                </form>
+
+                <p id="authMessage" class="auth-message" style="margin-top: 15px; text-align: center;"></p>
+                <p class="auth-note">We will contact you soon to arrange the best tutor for your child.</p>
+            </div>
+        </section>
+
+        <!-- 2. REGISTRATION PAGE -->
+        <section id="register" class="page-section">
+            <div class="form-card">
+                <h2>Student Registration</h2>
+                <form id="registrationForm" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@mail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="09XXXXXXXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="class">Academic Class / Level</label>
+                        <select id="class" required>
+                            <option value="">Select Grade</option>
+                            <option value="Primary (Grade 1-4)">Primary (Grade 1-4)</option>
+                            <option value="Middle School (Grade 5-8)">Middle School (Grade 5-8)</option>
+                            <option value="High School (Grade 9-10)">High School (Grade 9-10)</option>
+                            <option value="Preparatory (Grade 11-12)">Preparatory (Grade 11-12)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerChildrenCount">Number of Children for Tutorial</label>
+                        <input type="number" id="registerChildrenCount" min="1" max="10" placeholder="1" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Registration</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 3. BOOKS PAGE (Grade 1-12 Notebooks) -->
+        <section id="books" class="page-section">
+            <div class="books-header">
+                <h2>Notebooks & Learning Materials</h2>
+                <p>Select your grade level to access notes and revision materials.</p>
+            </div>
+
+            <!-- Back to main list button -->
+            <button id="backToGradesBtn" class="download-btn" style="display: none; width: auto; max-width: 200px; margin: 0 auto 24px auto;" onclick="showGradeGrid()">
+                ← Back to Grades
+            </button>
+
+            <!-- Main grades selection grid -->
+            <div class="grade-grid" id="gradeGrid">
+                <!-- Javascript dynamically builds Cards Grade 1 - 12 -->
+            </div>
+
+            <!-- Subjects view grid (hidden by default) -->
+            <div class="grade-grid" id="subjectGrid" style="display: none;">
+                <!-- Javascript dynamically builds subjects based on selected grade -->
+            </div>
+        </section>
+
+        <!-- 4. SETTINGS PAGE -->
+        <section id="settings" class="page-section">
+            <div class="settings-card">
+                <h2>Settings</h2>
+                <div class="setting-item">
+                    <label for="darkModeToggle">Dark Mode</label>
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                </div>
+                <button type="button" class="submit-btn" style="background-color: var(--accent-error); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);" onclick="logoutUser()">Logout</button>
+            </div>
+        </section>
+
+        <!-- 5. SERVICE & CONTACT PAGE -->
+        <section id="services" class="page-section">
+            <div class="services-container">
+                <div class="contact-box">
+                    <h3>Our Services</h3>
+                    <p style="margin-bottom: 1rem; color: var(--text-muted);">We provide customized 1-on-1 and group tutorial sessions in mathematics, sciences, languages, and exam preparations for Grade 1 through Grade 12 students.</p>
+                    <p style="color: var(--text-muted);">Contact us directly to arrange a trial session or schedule a personal tutor!</p>
+                </div>
+
+                <div class="contact-box">
+                    <h3>Get in Touch</h3>
+                    
+                    <div class="contact-item">
+                        <strong style="color: var(--text-muted);">Phone:</strong>
+                        <a href="tel:0963643419">0963643419</a>
+                    </div>
+
+                    <div class="contact-item">
+                        <strong style="color: var(--text-muted);">Telegram:</strong>
+                        <a href="https://t.me/ATU_TUTORIAL" target="_blank">t.me/ATU_TUTORIAL</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <button type="submit" id="submit-btn">Register</button>
-</form>
-    <button class="toggle-btn" id="toggle-form">Already have an account? Log In</button>
-    <div id="message"></div>
-</div>
+    <footer>
+        &copy; ATU TUTORIAL. All rights reserved.
+    </footer>
 
-<!-- Private Dashboard (Fallback fallback container if redirection is delayed) -->
-<div class="container hidden" id="dashboard-box">
-    <h2>Welcome!</h2>
-    <p>You are logged in as: <strong id="user-display"></strong></p>
-    <p>Redirecting to home page...</p>
-    <button id="logout-btn">Log Out</button>
-</div>
+    <!-- JavaScript Navigation and Setup Engine -->
+    <script>
+        const USERS_KEY = 'atu_users';
+        const CURRENT_USER_KEY = 'atu_current_user';
+        const TUTOR_REGISTRATIONS_KEY = 'atu_tutorial_registrations';
+        const DARK_MODE_KEY = 'atu_dark_mode';
 
-<script>
-    let isSignUp = true;
-    const authBox = document.getElementById('auth-box');
-    const dashboardBox = document.getElementById('dashboard-box');
-    const userDisplay = document.getElementById('user-display');
-    const messageDiv = document.getElementById('message');
-    const DARK_MODE_KEY = 'atu_dark_mode';
-
-    // 1. Theme Syncer (Applies dark mode from local storage)
-    function applyTheme() {
-        const enabled = localStorage.getItem(DARK_MODE_KEY) === 'true';
-        document.body.classList.toggle('dark-mode', enabled);
-    }
-
-    applyTheme();
-    // Sync dynamically across tabs if the user changes the theme in settings
-    window.addEventListener('storage', applyTheme);
-
-    // 2. On page load, check if user is already logged in (using session cookie)
-    async function checkAuth() {
-        try {
-            const res = await fetch('/api/me');
-            const data = await res.json();
-            if (data.loggedIn) {
-                // If already authenticated, redirect straight to the home page
-                window.location.href = 'atu.html';
-            } else {
-                showAuthForm();
-            }
-        } catch (error) {
-            showAuthForm();
-        }
-    }
-
-    function showDashboard(email) {
-        authBox.classList.add('hidden');
-        dashboardBox.classList.remove('hidden');
-        userDisplay.textContent = email;
-    }
-
-    function showAuthForm() {
-        authBox.classList.remove('hidden');
-        dashboardBox.classList.add('hidden');
-    }
-
-    checkAuth();
-
-    // 3. Toggle Forms
-    const formTitle = document.getElementById('form-title');
-    const submitBtn = document.getElementById('submit-btn');
-    const toggleFormBtn = document.getElementById('toggle-form');
-    toggleFormBtn.addEventListener('click', () => {
-        isSignUp = !isSignUp;
-        formTitle.textContent = isSignUp ? "Sign Up" : "Log In";
-        submitBtn.textContent = isSignUp ? "Register" : "Log In";
-        toggleFormBtn.textContent = isSignUp ? "Already have an account? Log In" : "Don't have an account? Sign Up";
-        messageDiv.textContent = "";
-    });// Toggle password visibility (Show/Hide)
-const togglePasswordBtn = document.getElementById('togglePassword');
-const passwordInput = document.getElementById('password');
-
-if (togglePasswordBtn && passwordInput) {
-    togglePasswordBtn.addEventListener('click', () => {
-        // Toggle the input type between 'password' and 'text'
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        
-        // Change the icon/text based on visibility
-        togglePasswordBtn.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
-    });
-}
-
-    // 4. Form Submission (Login / Register)
-    document.getElementById('auth-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const endpoint = isSignUp ? '/api/signup' : '/api/login';
-
-        try {
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
             });
-            const data = await res.json();
 
-            if (res.ok) {
-                // Store user details locally to maintain connection with atu.html
-                localStorage.setItem('userEmail', email);
-                localStorage.setItem('loggedInUser', 'true');
-
-               if (isSignUp) {
-    window.location.href = 'public/atu.html';
-} else {
-    window.location.href = 'public/atu.html';
-}
-            } else {
-                messageDiv.textContent = data.message || "An error occurred.";
-                messageDiv.style.color = "red";
+            if (pageId === 'home') {
+                showUserInfo();
             }
-        } catch (error) {
-            messageDiv.textContent = "Could not connect to the server.";
-            messageDiv.style.color = "red";
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            const navLink = document.getElementById('nav-' + pageId);
+            if (navLink) {
+                navLink.classList.add('active');
+            }
+
+            // Reset books section view when navigating away/to the tab
+            if (pageId === 'books') {
+                showGradeGrid();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    });
 
-    // 5. Log Out
-    document.getElementById('logout-btn').addEventListener('click', async () => {
-        await fetch('/api/logout', { method: 'POST' });
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('loggedInUser');
-        showAuthForm();
-        messageDiv.textContent = "Logged out successfully.";
-        messageDiv.style.color = "green";
-    });
-</script>
+        function showUserInfo() {
+            const savedUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY) || 'null');
+            if (savedUser && savedUser.email) {
+                return;
+            }
+        }
 
+        function applyTheme() {
+            const enabled = localStorage.getItem(DARK_MODE_KEY) === 'true';
+            document.body.classList.toggle('dark-mode', enabled);
+            const toggle = document.getElementById('darkModeToggle');
+            if (toggle) {
+                toggle.checked = enabled;
+            }
+        }
+
+        function toggleDarkMode() {
+            const enabled = document.getElementById('darkModeToggle').checked;
+            localStorage.setItem(DARK_MODE_KEY, String(enabled));
+            document.body.classList.toggle('dark-mode', enabled);
+        }
+
+        async function logoutUser() {
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+            } catch (error) {
+                console.error("Failed to destroy backend session:", error);
+            }
+            localStorage.removeItem(CURRENT_USER_KEY);
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userPhone');
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '/';
+        }
+
+        function renderChildGradeFields() {
+            const count = parseInt(document.getElementById('childrenCount').value || '0', 10);
+            const container = document.getElementById('childGradeFields');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= count; i++) {
+                const row = document.createElement('div');
+                row.className = 'child-grade-row';
+                row.innerHTML = `
+                    <label for="childGrade${i}">Grade for Child ${i}</label>
+                    <select id="childGrade${i}" required>
+                        <option value="">Select grade</option>
+                        <option value="Grade 1">Grade 1</option>
+                        <option value="Grade 2">Grade 2</option>
+                        <option value="Grade 3">Grade 3</option>
+                        <option value="Grade 4">Grade 4</option>
+                        <option value="Grade 5">Grade 5</option>
+                        <option value="Grade 6">Grade 6</option>
+                        <option value="Grade 7">Grade 7</option>
+                        <option value="Grade 8">Grade 8</option>
+                        <option value="Grade 9">Grade 9</option>
+                        <option value="Grade 10">Grade 10</option>
+                        <option value="Grade 11">Grade 11</option>
+                        <option value="Grade 12">Grade 12</option>
+                    </select>
+                `;
+                container.appendChild(row);
+            }
+        }
+
+        // Handle Tutorial Registration submission to the database.db
+        async function handleTutorialRegistration(event) {
+            event.preventDefault();
+
+            const parentName = document.getElementById('parentName').value.trim();
+            const phone = document.getElementById('parentPhone').value.trim();
+            const childrenCount = parseInt(document.getElementById('childrenCount').value || '0', 10);
+            const childGrades = [];
+
+            for (let i = 1; i <= childrenCount; i++) {
+                const grade = document.getElementById(`childGrade${i}`).value;
+                if (!grade) {
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = 'Please select the grade for each child.';
+                    msg.style.color = 'var(--accent-error)';
+                    return;
+                }
+                childGrades.push(grade);
+            }
+
+            const userEmail = localStorage.getItem('userEmail') || '';
+
+            try {
+                // Post details to our Node API, which saves it to tutor_registrations
+                const res = await fetch('/api/register-tutor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        email: userEmail,
+                        parentName, 
+                        phone, 
+                        childrenCount, 
+                        childGrades 
+                    })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    const registrations = JSON.parse(localStorage.getItem(TUTOR_REGISTRATIONS_KEY) || '[]');
+                    registrations.push({ parentName, phone, childrenCount, childGrades, registeredAt: new Date().toISOString() });
+                    localStorage.setItem(TUTOR_REGISTRATIONS_KEY, JSON.stringify(registrations));
+                    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify({ parentName, phone, childrenCount, childGrades }));
+
+                    document.getElementById('tutorialRegistrationForm').reset();
+                    document.getElementById('childGradeFields').innerHTML = '';
+                    
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = 'Successfully registered! We will contact you soon.';
+                    msg.style.color = 'var(--accent-success)';
+                    msg.style.fontWeight = '600';
+                    
+                    setTimeout(() => {
+                        showPage('home');
+                        msg.textContent = '';
+                    }, 2000);
+                } else {
+                    const msg = document.getElementById('authMessage');
+                    msg.textContent = data.message || 'Error occurred during registration.';
+                    msg.style.color = 'var(--accent-error)';
+                }
+            } catch (error) {
+                const msg = document.getElementById('authMessage');
+                msg.textContent = 'Could not connect to the server.';
+                msg.style.color = 'var(--accent-error)';
+            }
+        }
+
+        applyTheme();
+        window.addEventListener('storage', applyTheme);
+        renderChildGradeFields();
+
+        /* ==========================================
+           TEXTBOOKS DATA ENGINE (Grades 9 - 12)
+           Connected to local folder structure relative paths
+           ========================================== */
+        const subjectsData = {
+            9: [
+                { name: 'English', icon: '📖', file: 'https://drive.google.com/uc?export=view&id=1KV8PNx-QeTMTlX7tZ6js5WKNjWPNR20Z' },
+                { name: 'Maths', icon: '📐', file: 'https://drive.google.com/uc?export=view&id=1TKMqQrbqe96Tqbyt4BouYOdhcIyMpC-m' },
+                { name: 'Economics', icon: '📊', file: 'https://drive.google.com/uc?export=view&id=1vokvbHXP2nuOG99JAl4zKahbza-MHTzU' },
+                { name: 'Biology', icon: '🌱', file: 'https://drive.google.com/uc?export=view&id=146nQGNqf13-lfaL5R26PZfBX2xlJ5iHa' },
+                { name: 'Chemistry', icon: '🧪', file: 'https://drive.google.com/uc?export=view&id=1JewPIW2VdwnPONHLl-QPfWrtMW8pSpOk' },
+                { name: 'Citizenship', icon: '⚖️', file: 'https://drive.google.com/uc?export=view&id=1JwwWWBhb7jhj_-jHUSQCgGdCY5CcyWxf' },
+                { name: 'Geography', icon: '🌍', file: 'https://drive.google.com/uc?export=view&id=1LHWgiz_BZYCJ7nzQ6srxNjkJwPjlBnmj' },
+                { name: 'History', icon: '⏳', file: 'https://drive.google.com/uc?export=view&id=1YL4wVbs2SejBepedkQyMSe2QW1GuKMy9' },
+                { name: 'HPE', icon: '🏃', file: 'https://drive.google.com/uc?export=view&id=1X4UZ4dyxYQU_eyUNQER4tsonRC0qAhG_' },
+                { name: 'IT', icon: '💻', file: 'https://drive.google.com/uc?export=view&id=1MJ67cePrLwv-oP20Fp0fD-5O6uEfViNV' },
+                { name: 'Physics', icon: '⚛️', file: 'https://drive.google.com/uc?export=view&id=1GZtU1P__rD5ol2NvxEPfx0XlOlPbRxSJ' }
+            ],
+            10: [
+                { name: 'English', icon: '📖', file: 'https://drive.google.com/uc?export=view&id=13I5871aG_rHznVihQEwQzwcyB4mgXYkM' },
+                { name: 'Maths', icon: '📐', file: 'https://drive.google.com/uc?export=view&id=1aHsLf6J_GeaaBuCY5WTQLXWPrJv7Mk-C' },
+                { name: 'Economics', icon: '📊', file: 'https://drive.google.com/uc?export=view&id=1cDq6rJ-Wyc67ZeymcPSRpz5H6rFRT5Il' },
+                { name: 'Biology', icon: '🌱', file: 'https://drive.google.com/uc?export=view&id=1Gw7g5E0If6Py17bTcPZLnQOUxDUnjScr' },
+                { name: 'Chemistry', icon: '🧪', file: 'https://drive.google.com/uc?export=view&id=1QsQZxmyBIEcbvb5ibKP7F-dr06KSV_FJ' },
+                { name: 'Citizenship', icon: '⚖️', file: 'https://drive.google.com/uc?export=view&id=1apXYLq3tblPzpRehetGqrAMSABwRmY0s' },
+                { name: 'Geography', icon: '🌍', file: 'https://drive.google.com/uc?export=view&id=1sjLxEFgbujhBOaRjQrldVg-UDGFjkG_v' },
+                { name: 'History', icon: '⏳', file: 'https://drive.google.com/uc?export=view&id=1NHCkDqR5D7NCh5-zAJlU1KD-oUIt4aps' },
+                { name: 'HPE', icon: '🏃', file: 'https://drive.google.com/uc?export=view&id=1QfNLpM6h5EXwZZNmDey2-7UvAW6yeF19' },
+                { name: 'IT', icon: '💻', file: 'https://drive.google.com/uc?export=view&id=1CJG13ukNS5MNOKrtxMHulaBTIjJlK7bC' },
+                { name: 'Physics', icon: '⚛️', file: 'https://drive.google.com/uc?export=view&id=1ZDPqRJ6zMOO3mEIzzIKUg5lQbHmjbk_w' }
+            ],
+            11: [
+                { name: 'Agriculture', icon: '🌾', file: 'https://drive.google.com/uc?export=view&id=179kWNNVafNcxigBQ1DRqxXcjceOcfemD' },
+                { name: 'Biology', icon: '🌱', file: 'https://drive.google.com/uc?export=view&id=1g6QxXjrjqvPc4s81t3iWYFtlFEVcEPD2' },
+                { name: 'Chemistry', icon: '🧪', file: 'https://drive.google.com/uc?export=view&id=1r-d3Jb228AH3-XRKXvNGV8h_Qh6nvJgR' },
+                { name: 'Economics', icon: '📊', file: 'https://drive.google.com/uc?export=view&id=1_vXvfbLLE8GtK1hxkJM8NUQc_3AVk5AL' },
+                { name: 'English', icon: '📖', file: 'https://drive.google.com/uc?export=view&id=1ttShiAPVMrv8CHRvXGGpqQSFnxXSBChV' },
+                { name: 'Geography', icon: '🌍', file: 'https://drive.google.com/uc?export=view&id=18q3I5x3mY5J7hh1yYLGBeQqlB2aXOgXE' },
+                { name: 'History', icon: '⏳', file: 'https://drive.google.com/uc?export=view&id=19etYasse2EbNaKGsMnZI-hE-ydQiJ2S_' },
+                { name: 'IT', icon: '💻', file: 'https://drive.google.com/uc?export=view&id=1XbNf-QqhVw0XgBfSzjKSnovRJJmWeZcJ' },
+                { name: 'Maths', icon: '📐', file: 'https://drive.google.com/uc?export=view&id=1g1sr-6XfnQsYzGWNQobc5XLNg1pTOVXo' },
+                { name: 'Physics', icon: '⚛️', file: 'https://drive.google.com/uc?export=view&id=1OAmzn4HeYO2kdLxgLnthfqj4fSQWo5rp' }
+            ],
+            12: [
+                { name: 'Agriculture', icon: '🌾', file: 'https://drive.google.com/uc?export=view&id=11xlbe10Lq5ehsldYyFctAS3xVyR9TC62' },
+                { name: 'Biology', icon: '🌱', file: 'https://drive.google.com/uc?export=view&id=1PUTEYJyskMr0XDAs42JxleUAjxtamSlv' },
+                { name: 'Chemistry', icon: '🧪', file: 'https://drive.google.com/uc?export=view&id=1iWle-_ndIJe2rwhZc2tWbxAj-uuXHhHW' },
+                { name: 'Economics', icon: '📊', file: 'https://drive.google.com/uc?export=view&id=1rBjyB5SGz2LgfLhWZ_nqy8ONJBngt7oq' },
+                { name: 'English', icon: '📖', file: 'https://drive.google.com/uc?export=view&id=1meJpOQHs2DjO-IUUGLdI8RDvGNmP-bFs' },
+                { name: 'Geography', icon: '🌍', file: 'https://drive.google.com/uc?export=view&id=1JVICNlFoEs62YuQEieyaOR6xBxnX8dY3' },
+                { name: 'History', icon: '⏳', file: 'https://drive.google.com/uc?export=view&id=18PUhD2JAWL3KtFJpLRZniFYHprbpGRWl' },
+                { name: 'IT', icon: '💻', file: 'https://drive.google.com/uc?export=view&id=1p4b0_cePKMG7323Vkq-NUVtqMUhkV4fX' },
+                { name: 'Maths', icon: '📐', file: 'https://drive.google.com/uc?export=view&id=1-2_PkS86iBGxN5h2CZWTuiYBzrWo89_e' },
+                { name: 'Physics', icon: '⚛️', file: 'https://drive.google.com/uc?export=view&id=1lyRzBVnZDO6SbuHaQwt7zbm-Z8hOPdaH' }
+            ]
+        };
+
+        const gradeGrid = document.getElementById('gradeGrid');
+        for (let i = 1; i <= 12; i++) {
+            const card = document.createElement('div');
+            card.className = 'grade-card';
+            card.innerHTML = `
+                <div>
+                    <h3>Grade ${i}</h3>
+                    <p>Notebooks, summary sheets & worksheets for Grade ${i}.</p>
+                </div>
+                <button class="download-btn" onclick="openGradeBooks(${i})">
+                    Open Grade ${i} Notes
+                </button>
+            `;
+            gradeGrid.appendChild(card);
+        }
+
+        function openGradeBooks(gradeNum) {
+            const gradeGrid = document.getElementById('gradeGrid');
+            const subjectGrid = document.getElementById('subjectGrid');
+            const backBtn = document.getElementById('backToGradesBtn');
+            const headerText = document.querySelector('.books-header p');
+
+            if (subjectsData[gradeNum]) {
+                subjectGrid.innerHTML = '';
+                subjectsData[gradeNum].forEach(subj => {
+                    const card = document.createElement('div');
+                    card.className = 'grade-card';
+                    card.style.textAlign = 'center';
+                    
+                    // Create query link to direct to the custom viewer page
+                    const viewerUrl = `viewer.html?file=${encodeURIComponent(subj.file)}&subject=${encodeURIComponent(subj.name)}&grade=${gradeNum}`;
+                    
+                    card.innerHTML = `
+                        <div style="margin-bottom: 12px;">
+                            <span style="font-size: 2.5rem; display: block; margin-bottom: 8px;">${subj.icon}</span>
+                            <h3>${subj.name}</h3>
+                        </div>
+                        <a href="${viewerUrl}" class="download-btn" style="text-align: center; text-decoration: none;" target="_blank">
+                            Open PDF
+                        </a>
+                    `;
+                    subjectGrid.appendChild(card);
+                });
+
+                gradeGrid.style.display = 'none';
+                subjectGrid.style.display = 'grid';
+                backBtn.style.display = 'block';
+                headerText.textContent = `Displaying textbook PDFs for Grade ${gradeNum}.`;
+            } else {
+                alert(`Notebooks, revision summaries, and sheets for Grade ${gradeNum} are available by direct request on Telegram at @ATU_TUTORIAL!`);
+            }
+        }
+
+        function showGradeGrid() {
+            const gradeGrid = document.getElementById('gradeGrid');
+            const subjectGrid = document.getElementById('subjectGrid');
+            const backBtn = document.getElementById('backToGradesBtn');
+            const headerText = document.querySelector('.books-header p');
+
+            gradeGrid.style.display = 'grid';
+            subjectGrid.style.display = 'none';
+            backBtn.style.display = 'none';
+            headerText.textContent = 'Select your grade level to access notes and revision materials.';
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('fullName').value;
+            alert(`Thank you, ${name}! Your tutorial registration has been submitted successfully. We will reach out shortly via phone or Telegram.`);
+            document.getElementById('registrationForm').reset();
+            showPage('home');
+        }
+
+    </script>
 </body>
 </html>
